@@ -35,29 +35,34 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fetch 5-day forecast data using the city's coordinates
         const lat = data.coord.lat;
         const lon = data.coord.lon;
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly&units=metric&appid=${apiKey}`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
         fetch(forecastUrl)
-        .then(response => response.json())
-        .then(data => {
+          .then(response => response.json())
+          .then(data => {
           // Update the 5-day forecast section with the received data
           const forecastContainer = document.querySelector('.forecast-container');
       
-          for (let i = 0; i < 5; i++) {
-            const date = new Date(data.daily[i].dt * 1000).toLocaleDateString();
-            const icon = `https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`;
-            const temp = Math.round(data.daily[i].temp.day);
-            const wind = data.daily[i].wind_speed;
-            const humidity = data.daily[i].humidity;
-            const forecastItem = document.createElement('div');
-            forecastItem.classList.add('forecast-item');
-            forecastItem.innerHTML = `
-              <p>${date} <img src="${icon}" alt="${data.daily[i].weather[0].description}" /></p>
-              <p>Temp: ${temp} °C</p>
-              <p>Wind: ${wind} m/s</p>
-              <p>Humidity: ${humidity}%</p>
-            `;
-            forecastContainer.appendChild(forecastItem);
+          if (data.daily && data.daily.length >= 5) {
+            for (let i = 0; i < 5; i++) {
+              const date = new Date(data.daily[i].dt * 1000).toLocaleDateString();
+              const icon = `https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`;
+              const temp = Math.round(data.daily[i].temp.day);
+              const wind = data.daily[i].wind_speed;
+              const humidity = data.daily[i].humidity;
+              const forecastItem = document.createElement('div');
+              forecastItem.classList.add('forecast-item');
+              forecastItem.innerHTML = `
+                <p>${date} <img src="${icon}" alt="${data.daily[i].weather[0].description}" /></p>
+                <p>Temp: ${temp} °C</p>
+                <p>Wind: ${wind} m/s</p>
+                <p>Humidity: ${humidity}%</p>
+              `;
+              forecastContainer.appendChild(forecastItem);
+            }
+          } else {
+            console.log('No 5-day forecast data available');
           }
+          
 
           // Store the searched city in the search history section
           const li = document.createElement('li');
