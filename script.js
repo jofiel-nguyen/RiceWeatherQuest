@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(forecastUrl)
           .then(response => response.json())
           .then(data => {
+          console.log(data); // add this line
           // Update the 5-day forecast section with the received data
           const forecastContainer = document.querySelector('.forecast-container');
       
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
               forecastContainer.appendChild(forecastItem);
             }
           } else {
-            console.log('No 5-day forecast data available');
+            console.log('No 5-day forecast data available'); // add this line
           }
           
 
