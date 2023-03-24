@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+    <!-- Link to your own custom CSS file -->
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
     <header>
-        <nav>
-            <h1>Weather Dashboard</h1>
-            <form id="search-form">
-                <label for="search-input">Search for a city:</label>
-                <input type="text" id="search-input" name="search-input" placeholder="Enter city name">
-                <button type="submit">Search</button>
-            </form>
-        </nav>
+      <h1>Weather App</h1>
     </header>
     <main>
-        <article id="current-weather">
-            <h2>Current Weather</h2>
-            <p>Enter a city name to see the current weather</p>
-        </article>
-        <article id="forecast">
-            <h2>5-Day Forecast</h2>
-            <div class="forecast-container"></div>
-        </article>
-        <aside id="search-history">
-            <h2>Search History</h2>
-            
-        </aside>
+      <form>
+        <label for="location-input">Enter location:</label>
+        <input type="text" id="location-input" name="location">
+        <button type="submit">Get weather</button>
+      </form>
+      <div id="weather-info">
+        <!-- Weather information will be displayed here -->
+      </div>
     </main>
-    <script src="script.js"></script>
-</body>
+    <footer>
+      <p>Copyright © Wren</p>
+    </footer>
+    <!-- Link to JavaScript file -->
+    <script src="./script.js"></script>
+  </body>
 </html>
