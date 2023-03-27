@@ -43,7 +43,7 @@ async function getWeatherData(location) {
 function displayWeatherInfo(data) {
   const { weatherData, forecastData } = data;
   const { name, main: { temp, humidity }, weather: [ { description } ] } = weatherData;
-  const forecastList = forecastData.list.slice(0, 5);
+  const forecastList = forecastData.list.filter((item, index) => index % 8 === 0); // select every 8th item
 
   let forecastHtml = '';
   forecastList.forEach((forecast) => {
