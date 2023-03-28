@@ -65,7 +65,7 @@ function displayWeatherInfo(data) {
     <p>Humidity: ${humidity}%</p>
     <p>Description: ${description}</p>
     <div class="forecast-list">
-      <h3>5-Day Forecast</h3>
+      <h3 style = "color: red;">5-Day Forecast</h3>
       ${forecastHtml}
     </div>
   `;
