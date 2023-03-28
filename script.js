@@ -42,7 +42,9 @@ async function getWeatherData(location) {
 function displayWeatherInfo(data) {
   const { weatherData, forecastData } = data;
   const { name, main: { temp, humidity }, weather: [ { description, icon } ] } = weatherData;
-  const forecastList = forecastData.list.slice(0, 5);
+  
+  // Get the forecast data for the current day and every fifth day
+  const forecastList = forecastData.list.filter((forecast, index) => index % 8 === 0);
 
   const weatherIconUrl = `https://openweathermap.org/img/w/${icon}.png`;
   const weatherIconHtml = `<img src="${weatherIconUrl}" alt="${description}" />`;
