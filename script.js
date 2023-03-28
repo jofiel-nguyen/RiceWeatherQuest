@@ -2,6 +2,7 @@ const form = document.querySelector('form');
 const locationInput = document.querySelector('#location-input');
 const weatherInfo = document.querySelector('#weather-info');
 
+
 form.addEventListener('submit', (event) => {
   event.preventDefault(); // prevent form from submitting
 
@@ -43,11 +44,20 @@ function displayWeatherInfo(data) {
   const { weatherData, forecastData } = data;
   const { name, main: { temp, humidity }, weather: [ { description, icon } ] } = weatherData;
   
-  // Get the forecast data for every fifth day starting from tomorrow
-  const forecastList = forecastData.list.filter((forecast, index) => index % 8 === 0).slice(1);
+  
+  
+  // Get the forecast data for the next 5 days (excluding today)
+  const today = new Date();
+  const forecastList = forecastData.list.filter((forecast, index) => {
+    const forecastDate = new Date(forecast.dt_txt);
+    const isTomorrowOrLater = forecastDate > new Date().setHours(23,59,59);
+    const isMultipleOfEight = index % 8 === 0;
+    return isTomorrowOrLater && isMultipleOfEight;
+  }).slice(0, 5);
+  
+const weatherIconUrl = `https://openweathermap.org/img/w/${icon}.png`;
+const weatherIconHtml = `<img src="${weatherIconUrl}" alt="${description}" />`;
 
-  const weatherIconUrl = `https://openweathermap.org/img/w/${icon}.png`;
-  const weatherIconHtml = `<img src="${weatherIconUrl}" alt="${description}" />`;
 
   let forecastHtml = '';
   forecastList.forEach((forecast) => {
@@ -82,4 +92,30 @@ function displayWeatherInfo(data) {
       ${forecastHtml}
     </div>
   `;
+}
+function showHistory() {
+  const searchForm = document.querySelector('#search-form');
+  const historyList = document.querySelector('#history-list');
+  const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+  // Clear the history list before adding items
+  historyList.innerHTML = '';
+
+  // Add each search history item to the list
+  searchHistory.forEach((searchItem) => {
+    const listItem = document.createElement('li');
+    listItem.textContent = searchItem;
+    historyList.appendChild(listItem);
+  });
+
+  // Show the history list
+  historyList.style.display = 'block';
+
+  // Hide the history list when clicking outside of it
+  document.addEventListener('click', (event) => {
+    const isClickInside = historyList.contains(event.target) || searchForm.contains(event.target);
+    if (!isClickInside) {
+      historyList.style.display = 'none';
+    }
+  });
 }
