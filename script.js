@@ -43,7 +43,9 @@ async function getWeatherData(location) {
 function displayWeatherInfo(data) {
   const { weatherData, forecastData } = data;
   const { name, main: { temp, humidity }, weather: [ { description } ] } = weatherData;
-  const forecastList = forecastData.list.slice(0, 5);
+  
+  // Filter the forecast data to get only one forecast per day
+  const forecastList = forecastData.list.filter(forecast => forecast.dt_txt.includes('12:00:00')).slice(0, 5);
 
   let forecastHtml = '';
   forecastList.forEach((forecast) => {
@@ -69,11 +71,6 @@ function displayWeatherInfo(data) {
       ${forecastHtml}
     </div>
   `;
-  const storedForecast = localStorage.getItem('forecast');
-  if (storedForecast) {
-    const forecastList = JSON.parse(storedForecast);
-    // Use the forecastList array to display the forecast data
-  }
   
   // Store forecast data in localStorage
   localStorage.setItem('forecast', JSON.stringify(forecastList));
