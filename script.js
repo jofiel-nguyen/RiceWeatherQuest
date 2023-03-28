@@ -39,39 +39,45 @@ async function getWeatherData(location) {
 
   return { weatherData, forecastData };
 }
-
 function displayWeatherInfo(data) {
   const { weatherData, forecastData } = data;
-  const { name, main: { temp, humidity }, weather: [ { description } ] } = weatherData;
-  
-  // Filter the forecast data to get only one forecast per day
-  const forecastList = forecastData.list.filter(forecast => forecast.dt_txt.includes('12:00:00')).slice(0, 5);
+  const { name, main: { temp, humidity }, weather: [ { description, icon } ] } = weatherData;
+  const forecastList = forecastData.list.slice(0, 5);
+
+  const weatherIconUrl = `https://openweathermap.org/img/w/${icon}.png`;
+  const weatherIconHtml = `<img src="${weatherIconUrl}" alt="${description}" />`;
 
   let forecastHtml = '';
   forecastList.forEach((forecast) => {
     const date = new Date(forecast.dt * 1000);
-    const { main: { temp }, weather: [ { description } ] } = forecast;
+    const { main: { temp }, weather: [ { description, icon } ] } = forecast;
+
+    const forecastIconUrl = `https://openweathermap.org/img/w/${icon}.png`;
+    const forecastIconHtml = `<img src="${forecastIconUrl}" alt="${description}" />`;
 
     forecastHtml += `
       <div class="forecast">
         <p>${date.toLocaleDateString()}</p>
+        <p>${forecastIconHtml}</p>
         <p>Temperature: ${temp}°F</p>
         <p>Description: ${description}</p>
       </div>
     `;
   });
 
-  weatherInfo.innerHTML = `
+  const currentWeatherHtml = `
     <h2>${name}</h2>
+    <p>${weatherIconHtml}</p>
     <p>Temperature: ${temp}°F</p>
     <p>Humidity: ${humidity}%</p>
     <p>Description: ${description}</p>
+  `;
+
+  weatherInfo.innerHTML = `
+    ${currentWeatherHtml}
     <div class="forecast-list">
-      <h3>5-Day Forecast</h3>
+      <h3 style = "font-weight: bold;">5-Day Forecast</h3>
       ${forecastHtml}
     </div>
   `;
-  
-  // Store forecast data in localStorage
-  localStorage.setItem('forecast', JSON.stringify(forecastList));
 }
