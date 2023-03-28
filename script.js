@@ -43,7 +43,7 @@ async function getWeatherData(location) {
 function displayWeatherInfo(data) {
   const { weatherData, forecastData } = data;
   const { name, main: { temp, humidity }, weather: [ { description } ] } = weatherData;
-  const forecastList = forecastData.list.filter((item, index) => index % 8 === 0); // select every 8th item
+  const forecastList = forecastData.list.slice(0, 5);
 
   let forecastHtml = '';
   forecastList.forEach((forecast) => {
@@ -65,8 +65,16 @@ function displayWeatherInfo(data) {
     <p>Humidity: ${humidity}%</p>
     <p>Description: ${description}</p>
     <div class="forecast-list">
-      <h3 style = "color: red;">5-Day Forecast</h3>
+      <h3>5-Day Forecast</h3>
       ${forecastHtml}
     </div>
   `;
+  const storedForecast = localStorage.getItem('forecast');
+  if (storedForecast) {
+    const forecastList = JSON.parse(storedForecast);
+    // Use the forecastList array to display the forecast data
+  }
+  
+  // Store forecast data in localStorage
+  localStorage.setItem('forecast', JSON.stringify(forecastList));
 }
