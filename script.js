@@ -93,29 +93,15 @@ const weatherIconHtml = `<img src="${weatherIconUrl}" alt="${description}" />`;
     </div>
   `;
 }
-function showHistory() {
-  const searchForm = document.querySelector('#search-form');
-  const historyList = document.querySelector('#history-list');
-  const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-
-  // Clear the history list before adding items
+function displayHistory() {
   historyList.innerHTML = '';
-
-  // Add each search history item to the list
-  searchHistory.forEach((searchItem) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = searchItem;
-    historyList.appendChild(listItem);
+  searchHistory.forEach((term) => {
+    const li = document.createElement('li');
+    li.textContent = term;
+    historyList.appendChild(li);
   });
-
-  // Show the history list
-  historyList.style.display = 'block';
-
-  // Hide the history list when clicking outside of it
-  document.addEventListener('click', (event) => {
-    const isClickInside = historyList.contains(event.target) || searchForm.contains(event.target);
-    if (!isClickInside) {
-      historyList.style.display = 'none';
-    }
-  });
+  
+  // Clear search history and localStorage
+  searchHistory = [];
+  localStorage.removeItem('searchHistory');
 }

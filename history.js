@@ -1,13 +1,5 @@
-const form = document.querySelector('form');
-const locationInput = document.querySelector('#location-input');
-const weatherInfo = document.querySelector('#weather-info');
-const historyList = document.querySelector('#history-list');
-const showHistoryButton = document.getElementById('show-history-button');
-showHistoryButton.addEventListener('click', () => {
-  const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-  const searchHistoryHtml = searchHistory.map((search) => `<div>${search}</div>`).join('');
-  document.getElementById('search-history').innerHTML = searchHistoryHtml;
-});
+
+const historyList = document.getElementById('search-history');
 
 let searchHistory = [];
 
