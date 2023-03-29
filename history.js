@@ -31,7 +31,21 @@ function displayHistory() {
   historyList.innerHTML = '';
   searchHistory.forEach((term) => {
     const li = document.createElement('li');
-    li.textContent = term;
+    const link = document.createElement('a');
+    link.href = '#'; // Set the href to "#" so it doesn't navigate to a new page
+    link.textContent = term;
+    link.addEventListener('click', (event) => {
+      event.preventDefault(); // Prevent the link from navigating to a new page
+      getWeatherData(term)
+        .then((data) => {
+          displayWeatherInfo(data);
+        })
+        .catch((error) => {
+          console.error(error);
+          weatherInfo.innerHTML = `Error: ${error.message}`;
+        });
+    });
+    li.appendChild(link);
     historyList.appendChild(li);
   });
 }
