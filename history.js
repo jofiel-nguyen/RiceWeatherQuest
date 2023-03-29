@@ -28,14 +28,20 @@ form.addEventListener('submit', (event) => {
 });
 
 function displayHistory() {
+  // Sort the search history array alphabetically
+  searchHistory.sort();
+
+  // Clear the history list
   historyList.innerHTML = '';
+
+  // Iterate through the sorted search history array
   searchHistory.forEach((term) => {
     const li = document.createElement('li');
     const link = document.createElement('a');
-    link.href = '#'; // Set the href to "#" so it doesn't navigate to a new page
+    link.href = '#';
     link.textContent = term;
     link.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevent the link from navigating to a new page
+      event.preventDefault();
       getWeatherData(term)
         .then((data) => {
           displayWeatherInfo(data);
