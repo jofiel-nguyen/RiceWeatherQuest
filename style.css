@@ -24,7 +24,13 @@ nav {
 
 nav h1 {
   font-size: 1.5rem;
+  color: #333; /* change color to your preference */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase; /* optional */
 }
+
 
 nav form {
   display: flex;
@@ -79,7 +85,9 @@ article h2 {
   display: flex;
   justify-content: space-between;
 }
-
+#search-history {
+  margin-top: 20px;
+}
 .forecast-item {
   flex-basis: 18%;
   background-color: #fff;
@@ -185,4 +193,10 @@ aside li:hover {
 .forecast p:first-of-type {
   font-weight: bold;
   margin-top: 0;
+}
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
 }
