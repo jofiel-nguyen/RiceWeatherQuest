@@ -1,7 +1,13 @@
-
 const historyList = document.getElementById('search-history');
+const clearButton = document.getElementById('clear-history');
 
 let searchHistory = [];
+
+// Retrieve search history from local storage
+if (localStorage.getItem('searchHistory')) {
+  searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+  displayHistory();
+}
 
 form.addEventListener('submit', (event) => {
   event.preventDefault(); // prevent form from submitting
@@ -18,6 +24,9 @@ form.addEventListener('submit', (event) => {
       if (!searchHistory.includes(location)) {
         searchHistory.push(location);
         displayHistory();
+
+        // Save search history to local storage
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
       }
     })
     .catch((error) => {
@@ -25,6 +34,14 @@ form.addEventListener('submit', (event) => {
       // display error message in the weatherInfo div
       weatherInfo.innerHTML = `Error: ${error.message}`;
     });
+});
+
+clearButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  // Clear search history from local storage and array
+  localStorage.removeItem('searchHistory');
+  searchHistory = [];
+  displayHistory();
 });
 
 function displayHistory() {
