@@ -33,7 +33,7 @@ As a traveler, you can use Weather Daily to see the weather outlook for multiple
 
 ## Accessing the Application
 
-You can access the deployed version of Weather Daily by following this link: [Weather Daily - Deployed]([https://nhunguyen-debug.github.io/Get-weather-challenge-for-rice/](https://nhunguyen-debug.github.io/RiceWeatherQuest/))
+You can access the deployed version of Weather Daily by following this link: [Weather Daily - Deployed](https://nhunguyen-debug.github.io/RiceWeatherQuest/)
 
 To explore the source code and contribute to the project, visit the GitHub repository: [Weather Daily - GitHub](https://github.com/nhunguyen-debug/Get-weather-challenge-for-rice.git)
 
