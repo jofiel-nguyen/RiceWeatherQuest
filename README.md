@@ -1,5 +1,5 @@
 # Weather Daily
-theme: jekyll-theme-Weather Daily
+
 ## Overview
 
 Weather Daily is a weather dashboard application that allows users to quickly access current and future weather conditions for multiple cities. It provides a user-friendly interface for travelers and anyone interested in checking the weather outlook for planning purposes. Users can search for a city, view current weather conditions, see a 5-day weather forecast, and access their search history.
