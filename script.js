@@ -22,7 +22,7 @@ form.addEventListener('submit', (event) => {
 });
 
 async function getWeatherData(location) {
-  const apikey = 'ea081e7c8189b40b973d3d4c71f263d0';
+  const apikey = '';
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apikey}`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apikey}`;
 
